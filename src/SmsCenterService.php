@@ -243,7 +243,11 @@ class SmsCenterService implements SmsCenterContract
     public function throw(array $response): array
     {
         if (isset($response['error'])) {
-            throw new SmsCenterException($response['error'], $response['error_code'] ?? 0);
+            throw new SmsCenterException(
+                message: $response['error'],
+                code: $response['error_code'] ?? MessageStatus::undefined->value,
+                message_id: $response['id'] ?? null
+            );
         }
 
         return $response;

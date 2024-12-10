@@ -8,7 +8,7 @@ class SmsCenterException extends \Exception
 {
     protected ?int $message_id;
 
-    public function __construct(string $message = "", int $code = 0, ?Throwable $previous = null, int $message_id = null) {
+    public function __construct(string $message = "", int $code = -65365, ?Throwable $previous = null, int $message_id = null) {
         parent::__construct($message, $code, $previous);
 
         $this->message_id = $message_id;
@@ -17,5 +17,10 @@ class SmsCenterException extends \Exception
     public function getMessageId(): ?int
     {
         return $this->message_id;
+    }
+
+    public function getStatus(): ?MessageStatus
+    {
+        return MessageStatus::tryFrom($this->getCode());
     }
 }
